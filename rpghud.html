@@ -1,0 +1,95 @@
+<html>
+    <head>
+
+        <!--<link rel="stylesheet" type="text/css" href="https://just36.justhost.com/~danmaru1/hangoutapps/RPGHUDdicerolleralpha1/dejavusans_book_macroman/stylesheet.css" charset="utf-8"/>-->
+        <link rel="stylesheet" type="text/css" href="rpghud.css"/>
+
+        <!--<script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>-->
+        <!--<script src="//apis.google.com/js/client.js"></script>-->
+
+        <!--<link rel="stylesheet" type="text/css" href="ltcharsheet.css"/>-->
+        <script src="broadcastDB.js"></script>
+        <script src="fakeHangoutAPI.js"></script>
+        <script src="popupMenu.js"></script>
+        <script src="diceDrawing.js"></script>
+        <script src="colors.js"></script>
+        <script src="poolManager.js"></script>
+        <script src="diceRoller.js"></script>
+        <script src="startup.js"></script>
+
+        <style>
+          body {
+            width: 300;
+            height: 850;
+          }
+        </style>
+    </head>
+    <body oncontextmenu="return false;" onload="init();" style="margin:0px;">
+        <div id="extension" class="tabs">
+            <div id="playarea" class="tab">
+                <input type="radio" id="tab-1" name="tab-group-1" checked/>
+                <label for="tab-1">Gameplay</label>
+                <div class="content">
+                    <!--<canvas id="diecanvas" height=256 width=256></canvas>-->
+                    <div id="dicecontrols" class="controls"></div>
+                    <div id="dicebuttons" class="controls" style="text-align: center;">
+                        <input class="rollbutton" type="button" onclick="sortPool()" value="Sort dice in pool"/>
+                        <input class="rollbutton" type="button" onclick="rollDiceIntoPool()" value="Roll dice into pool"/>
+                    </div>
+                    <div id="diceresults" class="stretchycontent"></div>
+                    <div id="deletebuttons" class="controls" style="text-align: center;">
+                        <button class="rollbutton" onclick="clearPool()">Clear Pool</button>
+                        <button class="rollbutton"onclick="removeXsFromPool()">Clear &#x2715 dice</button>
+                        <button id="pickupxsbutton" style="display: none;" class="rollbutton"onclick="pickUpXsFromPool()">Pick up &#x2715 dice</button>
+                    </div>
+                    <div id="displaywidgets" class="controls">
+                        <div id="tokenwidget" class="displaywidget" style="position: relative; vertical-align: top;">
+                            <img id="tokenbkgrnd" height=60 width=60 visible=false/>
+                            <input id="numberontoken" type="text" size=2 maxlength=2; value=""/>
+                            <button onclick="addTokenToPool()">Token</button>
+                        </div>
+                    </div>
+                    <div id="lowerthirdcontrols" class="controls">
+                        <div id="basiclowerthird"  style="display:none; border: 1px solid black;">
+                            <input id="lttitleenable" type="checkbox" checked onchange="lowerthirdchange();"/><input id="lttitlecolor" type="color" value="#FFFFFF" onchange="lowerthirdchange();"><input id="lttitletextcolor" type="color" onchange="lowerthirdchange();"><input id="lttitle" onchange="lowerthirdchange();" value="Main Title" style="width:60%;"/>
+                            <input id="ltsubtitleenable" type="checkbox" checked onchange="lowerthirdchange();"/><input id="ltsubtitlecolor" type="color" value="#3070A0" onchange="lowerthirdchange();"><input id="ltsubtitletextcolor" type="color" onchange="lowerthirdchange();"><input id="ltsubtitle" onchange="lowerthirdchange();" value="Subtitle" style="width:60%;"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="configarea" class="tab">
+                <input type="radio" id="tab-2" name="tab-group-1"/>
+                <label for="tab-2">Configuration</label>
+                <div class="content">
+                    <div id="dicecontrolsconfig" class="controls">
+                        <div id="adddiecontainer" class="dieinput" style="vertical-align: top;">
+                            <button class="adddiebutton" onclick="rpghudAddNewDieType()">Add Die Type</button>
+                        </div>
+                    </div>
+                    <div id="dicebuttonsconfig" class="controls">&nbsp;</div>
+                    <div id="diceresultsconfig" class="stretchycontent"></div>
+                    <div id="displaywidgetsconfig" class="controls">
+                        <div id="addwidgetdiv" class="displaywidget" style="vertical-align: top;">
+                            <button onclick="addDisplayWidget()">Add Display</button>
+                            <input id="tokencolor" type="color" title="Token Color"/>
+                        </div>
+                    </div>
+                    <div id="lowerthirdconfig" class="controls" style="border: 1px solid black; padding: 2px;">
+                        Lower Third: <select id="whatkindoflowerthird" onchange="lowerthirdchange();">
+                            <option value="off">None</option>
+                            <option value="basic">Basic</option>
+                            <option value="googledocs" disabled="true">GoogleDocs</option>
+                        </select>
+                    </div>
+                    <div id="dicecleanupconfig" class="controls">
+                        <input id="pickupxsenable" type="checkbox" onchange="changepickupxs()"/>Enable "Pick up &#x2715s" button<br>
+                        <input id="mirrorlocalvideo" type="checkbox" onchange="changelocalmirror()"/>Mirror local video<br>
+                        <input id="userandomdiecolors" type="checkbox" checked/>Random color for new die types<br>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </body>
+</html>
